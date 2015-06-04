@@ -27,7 +27,7 @@ public class Stack<T> {
         if (size != 0) {
             Element current = top;
             top = top.next;
-            --size;
+            size--;
             return current.value;
         } else {
             System.out.println("Стек пуст");
@@ -40,7 +40,7 @@ public class Stack<T> {
      */
     class Element {
         T value;
-        Element next = null;
+        Element next;
 
         public Element(T value) {
             this.value = value;
