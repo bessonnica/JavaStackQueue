@@ -2,6 +2,10 @@
  * Стек: LIFO = Last Input First Output
  */
 public class Stack<T> {
+
+    Element top = null;
+    int size = 0;
+
     /**
      * Добавить на вершину стека
      *
@@ -9,6 +13,8 @@ public class Stack<T> {
      */
     public void push(T v) {
         // TODO: реализовать
+        top = new Element(v);
+        size++;
     }
 
     /**
@@ -18,7 +24,15 @@ public class Stack<T> {
      */
     public T pop() {
         // TODO: реализовать
-        return null;
+        if (size != 0) {
+            Element current = top;
+            top = top.next;
+            --size;
+            return current.value;
+        } else {
+            System.out.println("Стек пуст");
+            return null;
+        }
     }
 
     /**
@@ -26,6 +40,10 @@ public class Stack<T> {
      */
     class Element {
         T value;
-        Element next;
+        Element next = null;
+
+        public Element(T value) {
+            this.value = value;
+        }
     }
 }
