@@ -1,3 +1,5 @@
+import java.util.EmptyStackException;
+
 /**
  * Стек: LIFO = Last Input First Output
  */
@@ -13,8 +15,13 @@ public class Stack<T> {
      */
     public void push(T v) {
         // TODO: реализовать
-        top = new Element(v);
-        size++;
+        Element current = new Element(v);
+        if (top == null) {
+            current.next = null;
+        }
+        current.next = top;
+        top = current;
+        size ++;
     }
 
     /**
@@ -22,17 +29,15 @@ public class Stack<T> {
      *
      * @return значение
      */
-    public T pop() {
+    public T pop() throws EmptyStackException {
         // TODO: реализовать
-        if (size != 0) {
-            Element current = top;
-            top = top.next;
-            size--;
-            return current.value;
-        } else {
-            System.out.println("Стек пуст");
-            return null;
+        if (top == null) {
+            throw new EmptyStackException();
         }
+        Element current = top;
+        top = top.next;
+        size--;
+        return current.value;
     }
 
     /**

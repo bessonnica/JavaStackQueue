@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * Очередь: FIFO = First Input First Output
  */
@@ -14,15 +16,16 @@ public class Queue<T> {
      */
     public void put(T v) {
         // TODO: реализовать
-        size++;
         Element putElement = new Element(v);
-        if (size == 0) {
+        if (head == null) {
+            assert tail == null;
             head = putElement;
             tail = putElement;
             return;
         }
         tail.next = putElement;
         tail = putElement;
+        size++;
     }
 
     /**
@@ -30,17 +33,16 @@ public class Queue<T> {
      *
      * @return значение
      */
-    public T get() {
+    public T get() throws NoSuchElementException {
         // TODO: реализовать
-        if (size != 0) {
-            --size;
-            Element current = head;
-            head = head.next;
-            return current.value;
-        } else {
-            System.out.println("Очередь пуста");
-            return null;
+        if (head == null) {
+            assert tail == null;
+            throw new NoSuchElementException();
         }
+        Element current = head;
+        head = head.next;
+        --size;
+        return current.value;
     }
 
     /**
@@ -48,7 +50,7 @@ public class Queue<T> {
      */
     class Element {
         T value;
-        Element next;
+        Element next = null;
 
         public Element(T v) {
             this.value = v;
